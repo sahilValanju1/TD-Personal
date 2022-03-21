@@ -4,12 +4,20 @@ import json
 import pyttsx3
 from difflib import get_close_matches
 from PIL import Image, ImageTk
+import speech_recognition as sr
 
+r = sr.Recognizer()
 engine=pyttsx3.init()
 
-def wordaudio():
-    print("")
 
+def wordaudio():
+    with sr.Microphone() as source:
+        audio = r.listen(source)
+    try:
+        text = r.recognize_google(audio)
+        enterwordentry.insert(0, text)
+    except:
+        print("Error")
 
 def  meaningaudio():
     voices = engine.getProperty('voices')
